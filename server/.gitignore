@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Production or Build Output
+build/
+dist/
+out/
+
+# Testing Coverage (optional)
+coverage/
+
+# Documentation (optional)
+docs/
+
+# IDE or Editor Temporary Files
+.idea/
+.vscode/
+.DS_Store
+
+# Environment Variables
+.env
+.env.local  # Or any other file containing database credentials
+
+# Logs
+*.log
+
+# Compiled Node.js Files (optional)
+*.node
