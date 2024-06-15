@@ -6,7 +6,7 @@ async function signup(req, res) {
     if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Empty Fields",
+        message: "Fill out all the fields",
       });
     }
     //search in DB if user already exists
@@ -17,6 +17,16 @@ async function signup(req, res) {
         message: "User already exists , Please Login",
       });
     }
+
+    // Check if the username is already in use
+    const existingUserByUsername = await User.findOne({ username });
+    if (existingUserByUsername) {
+      return res.status(400).json({
+        success: false,
+        message: "Username already taken, Please choose another one",
+      });
+    }
+
     let hashedPassword;
     try {
       hashedPassword = await bcrypt.hash(password,10)

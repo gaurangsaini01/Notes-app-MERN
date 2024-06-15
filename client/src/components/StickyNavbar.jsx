@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export function StickyNavbar() {
+export function StickyNavbar({ loginStatus, setLoginStatus }) {
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -66,38 +66,49 @@ export function StickyNavbar() {
 
   return (
     <div className="max-h-[768px] w-[100vw]">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 lg:px-8 py-1">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 cursor-pointer py-1.5 text-xl font-bold tracking-wider"
-          >
-            Cloudify Notes
-          </Typography>
+          <Link to={"/"}>
+            <Typography className="mr-4 cursor-pointer py-1.5 text-xl font-bold tracking-wider">
+              Cloudify Notes
+            </Typography>
+          </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <div className="flex items-center gap-x-1">
-              <Link to={"/login"}>
-                <Button
-                  variant="text"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <span>Log In</span>
-                </Button>
-              </Link>
+            {!loginStatus && (
+              <div className="flex items-center gap-x-1">
+                <Link to={"/login"}>
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>Log In</span>
+                  </Button>
+                </Link>
 
-              <Link to={"/signup"}>
+                <Link to={"/signup"}>
+                  <Button
+                    variant="gradient"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>Sign Up</span>
+                  </Button>
+                </Link>
+              </div>
+            )}
+            {loginStatus && (
+              <Link to={"/dashboard"}>
                 <Button
                   variant="gradient"
                   size="sm"
                   className="hidden lg:inline-block"
                 >
-                  <span>Sign Up</span>
+                  <span>Dashboard</span>
                 </Button>
               </Link>
-            </div>
+            )}
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -139,14 +150,29 @@ export function StickyNavbar() {
         </div>
         <Collapse open={openNav}>
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
+
+          {!loginStatus && (
+            <div className="flex items-center gap-x-1">
+              <Button fullWidth variant="text" size="sm" className="">
+                <Link to={"/login"}>
+                  <span>Log In</span>
+                </Link>
+              </Button>
+
+              <Button fullWidth variant="gradient" size="sm" className="">
+                <Link to={"/signup"}>
+                  <span>Sign Up</span>
+                </Link>
+              </Button>
+            </div>
+          )}
+          {loginStatus && (
             <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign Up</span>
+              <Link to={"/dashboard"}>
+                <span>Dashboard</span>
+              </Link>
             </Button>
-          </div>
+          )}
         </Collapse>
       </Navbar>
     </div>
