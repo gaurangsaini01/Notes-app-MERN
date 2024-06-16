@@ -27,7 +27,7 @@ export function LoginForm({loginStatus,setLoginStatus}) {
         localStorage.setItem("token",e.data.token)
         toast.success("LoggedIn");
         setLoginStatus(true);
-        navigate("/dashboard");
+        navigate("/notes");
       })
       .catch((e) => {
         toast.error(e.response.data.message);

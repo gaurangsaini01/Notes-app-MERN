@@ -7,6 +7,7 @@ import {
   Collapse,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function StickyNavbar({ loginStatus, setLoginStatus }) {
   const [openNav, setOpenNav] = React.useState(false);
@@ -17,6 +18,12 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  function handleLogout() {
+    setLoginStatus(false);
+    toast.success("Logged Out Successfully");
+    navigate("/login");
+  }
 
   const navList = (
     <ul className="mt-2 pt-6 mb-4 flex flex-col gap-2 lg:mb-5 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -75,6 +82,9 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
           </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
+
+            {/* //Bahar wale hai  */}
+
             {!loginStatus && (
               <div className="flex items-center gap-x-1">
                 <Link to={"/login"}>
@@ -99,15 +109,28 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
               </div>
             )}
             {loginStatus && (
-              <Link to={"/dashboard"}>
-                <Button
-                  variant="gradient"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <span>Dashboard</span>
-                </Button>
-              </Link>
+              <div className="flex items-center gap-x-1">
+                <Link to={"/notes"}>
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>Dashboard</span>
+                  </Button>
+                </Link>
+
+                <Link to={"/login"}>
+                  <Button
+                    onClick={handleLogout}
+                    variant="gradient"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                  >
+                    <span>Logout</span>
+                  </Button>
+                </Link>
+              </div>
             )}
             <IconButton
               variant="text"
@@ -167,11 +190,19 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
             </div>
           )}
           {loginStatus && (
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <Link to={"/dashboard"}>
-                <span>Dashboard</span>
-              </Link>
-            </Button>
+            <div className="flex items-center gap-x-1">
+              <Button fullWidth variant="text" size="sm" className="">
+                <Link to={"/notes"}>
+                  <span>Dashboard</span>
+                </Link>
+              </Button>
+
+              <Button onClick={handleLogout} fullWidth variant="gradient" size="sm" className="">
+                <Link to={"/login"}>
+                  <span>Logout</span>
+                </Link>
+              </Button>
+            </div>
           )}
         </Collapse>
       </Navbar>

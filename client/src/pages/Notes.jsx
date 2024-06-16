@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
+import toast from "react-hot-toast";
+import Card from "../components/Card";
 
-function Notes() {
+function Notes({ loginStatus, setLoginStatus }) {
   const [notes, setNotes] = useState([]);
   const [note, setNote] = useState({
     title: "",
@@ -12,7 +15,6 @@ function Notes() {
   useEffect(() => {
     async function getNotes() {
       try {
-        console.log("Hello");
         const response = await axiosInstance.get("/getAllNotes");
         setNotes(response.data.notes);
       } catch (e) {
@@ -36,7 +38,8 @@ function Notes() {
     console.log(response);
     const newNote = response.data.createdNote;
     setNotes((prev) => [...prev, newNote]);
-    setNote({title:"",description:""})
+    setNote({ title: "", description: "" });
+    toast.success("Note Created Successfully");
   }
 
   return (
@@ -72,14 +75,25 @@ function Notes() {
           Create Note
         </Button>
       </form>
-      <div className="w-[80%] mt-10 flex flex-wrap justify-between gap-10">
-        {notes.map((note, index) => (
-          <div key={index} className="flex flex-col border-2 rounded-md w-[330px]">
-            <h1 className="md:text-3xl text-xl text-gray-800 font-bold capitalize">{note.title}</h1>
-            <h2>{note.description}</h2>
-          </div>
-        ))}
-      </div>
+      {loginStatus && (
+        <div className="w-[80%] mt-10 flex flex-wrap justify-between gap-10">
+          {notes.map((note, index) => (
+            <Card
+              key={index}
+              title={note.title}
+              description={note.description}
+            />
+          ))}
+        </div>
+      )}
+      {!loginStatus && (
+        <div>
+          <h2>
+            Login to View/Create your Notes :{" "}
+            {<Link to={"/login"}>Click Here</Link>}{" "}
+          </h2>
+        </div>
+      )}
     </div>
   );
 }

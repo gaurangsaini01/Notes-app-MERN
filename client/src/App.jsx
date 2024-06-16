@@ -8,13 +8,19 @@ import { LoginForm } from "./pages/LoginForm";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import ContactUs from "./pages/ContactUs";
-import Dashboard from "./pages/Dashboard";
-import { useState } from "react";
+
+import { useState ,useEffect} from "react";
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLoginStatus(true);
+    }
+  }, []);
   return (
-    <div className="overflow-hidden h-[100vh]">
+    <div className="overflow-x-hidden h-[100vh]">
       <StickyNavbar loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
@@ -28,21 +34,17 @@ function App() {
             />
           }
         ></Route>
-        <Route path="/notes" element={<Notes />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/contact" element={<ContactUs />}></Route>
         <Route
-          path="/dashboard"
+          path="/notes"
           element={
-            <Dashboard
-              loginStatus={loginStatus}
-              setLoginStatus={setLoginStatus}
-            />
+            <Notes loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
           }
         ></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/contact" element={<ContactUs />}></Route>
       </Routes>
       {/* <div className="absolute bottom-0 w-full"> */}
-        <Footer />
+      <Footer />
       {/* </div> */}
     </div>
   );
