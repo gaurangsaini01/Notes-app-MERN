@@ -15,5 +15,5 @@ router.post("/login", login);
 router.post("/createnote", auth, createNote);
 router.post("/updatenote", auth, updateNote);
 router.get("/getallnotes", auth, getAllNotes);
-router.delete("/deletenote", auth, deleteNote);
+router.delete("/deletenote/:id", auth, deleteNote);
 module.exports = router;

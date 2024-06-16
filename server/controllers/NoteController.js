@@ -10,7 +10,7 @@ async function createNote(req, res) {
       title,
       description,
     });
-    const updatedUser = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       userId,
       {
         $push: { notes: createdNote._id },
@@ -21,7 +21,6 @@ async function createNote(req, res) {
       success: true,
       message: "Note Created Successfully",
       createdNote,
-      updatedUser,
     });
   } catch (err) {
     return res.status(500).json({
@@ -61,7 +60,7 @@ async function updateNote(req, res) {
 }
 async function deleteNote(req, res) {
   try {
-    const { noteId } = req.body;
+    const noteId = req.params.id;
     if (!noteId) {
       return res
         .status(400)
@@ -118,7 +117,7 @@ async function getAllNotes(req, res) {
     return res.status(500).json({
       success: false,
       message: "Error in getting all notes",
-      data: err.message,
+      data: error.message,
     });
   }
 }

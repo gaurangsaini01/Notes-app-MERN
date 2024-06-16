@@ -16,7 +16,6 @@ export function LoginForm({loginStatus,setLoginStatus}) {
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
-    console.log(details);
   }
 
   async function handleSubmit(e) {

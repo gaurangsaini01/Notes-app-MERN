@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
-import Card from "../components/Card";
+import Note from "../components/Note";
 
 function Notes({ loginStatus, setLoginStatus }) {
   const [notes, setNotes] = useState([]);
@@ -15,9 +15,9 @@ function Notes({ loginStatus, setLoginStatus }) {
   useEffect(() => {
     async function getNotes() {
       try {
-        const response = await axiosInstance.get("/getAllNotes");
+        const response = await axiosInstance.get("/getallnotes");
         setNotes(response.data.notes);
-      } catch (e) {
+      } catch (error) {
         console.log(error);
       }
     }
@@ -34,18 +34,21 @@ function Notes({ loginStatus, setLoginStatus }) {
   }
   async function addNote(e) {
     e.preventDefault();
-    const response = await axiosInstance.post("/createNote", note);
-    console.log(response);
+    const response = await axiosInstance.post("/createnote", note);
     const newNote = response.data.createdNote;
     setNotes((prev) => [...prev, newNote]);
     setNote({ title: "", description: "" });
     toast.success("Note Created Successfully");
   }
 
+  function onDelete(id) {
+    setNotes((prev) => prev.filter((note) => note._id !== id));
+  }
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2 className="font-bold text-center my-2 md:my-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-800">
-        Create Your Custom Notes :)
+      <h2 className=" text-center my-2 md:my-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-800">
+        Create Your Custom Notes !
       </h2>
       <form
         action=""
@@ -59,12 +62,12 @@ function Notes({ loginStatus, setLoginStatus }) {
           name="title"
           value={note.title}
           placeholder="Enter Title here"
-          className="px-6 py-1.5 rounded-md focus:outline-dashed"
+          className="px-6 py-1.5 rounded-md border-2 border-black"
         />
         <input
           onChange={handleChange}
           autoComplete="off"
-          className="px-6 py-1.5 rounded-md focus:outline-dashed"
+          className="px-6 py-1.5 rounded-md  border-2 border-black"
           type="text"
           value={note.description}
           id="description"
@@ -76,10 +79,12 @@ function Notes({ loginStatus, setLoginStatus }) {
         </Button>
       </form>
       {loginStatus && (
-        <div className="w-[80%] mt-10 flex flex-wrap justify-between gap-10">
+        <div className="md:w-[80%] w-full px-5 xl:px-0 mt-0 md:mt-6 flex flex-wrap gap-2 md:gap-5">
           {notes.map((note, index) => (
-            <Card
+            <Note
+              onDelete={onDelete}
               key={index}
+              id={note._id}
               title={note.title}
               description={note.description}
             />

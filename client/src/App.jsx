@@ -8,44 +8,48 @@ import { LoginForm } from "./pages/LoginForm";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import ContactUs from "./pages/ContactUs";
-
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false);
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       setLoginStatus(true);
     }
   }, []);
+
   return (
-    <div className="overflow-x-hidden h-[100vh]">
+    <div className="overflow-x-hidden flex flex-col min-h-screen">
       <StickyNavbar loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/signup" element={<SignupForm />}></Route>
-        <Route
-          path="/login"
-          element={
-            <LoginForm
-              loginStatus={loginStatus}
-              setLoginStatus={setLoginStatus}
-            />
-          }
-        ></Route>
-        <Route
-          path="/notes"
-          element={
-            <Notes loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
-          }
-        ></Route>
-        <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/contact" element={<ContactUs />}></Route>
-      </Routes>
-      {/* <div className="absolute bottom-0 w-full"> */}
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/signup" element={<SignupForm />}></Route>
+          <Route
+            path="/login"
+            element={
+              <LoginForm
+                loginStatus={loginStatus}
+                setLoginStatus={setLoginStatus}
+              />
+            }
+          ></Route>
+          <Route
+            path="/notes"
+            element={
+              <Notes
+                loginStatus={loginStatus}
+                setLoginStatus={setLoginStatus}
+              />
+            }
+          ></Route>
+          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/contact" element={<ContactUs />}></Route>
+        </Routes>
+      </div>
       <Footer />
-      {/* </div> */}
     </div>
   );
 }

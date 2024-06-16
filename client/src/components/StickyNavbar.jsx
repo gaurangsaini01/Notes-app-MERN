@@ -8,8 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function StickyNavbar({ loginStatus, setLoginStatus }) {
+  const navigate=useNavigate();
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
