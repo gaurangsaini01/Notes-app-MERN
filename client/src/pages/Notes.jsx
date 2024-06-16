@@ -45,14 +45,19 @@ function Notes({ loginStatus, setLoginStatus }) {
     setNotes((prev) => prev.filter((note) => note._id !== id));
   }
 
+  function onUpdate(updatedNote) {
+    setNotes((prev) => prev.map((note) => (note._id === updatedNote._id ? updatedNote : note)));
+  }
+
   return (
     <div className="flex flex-col items-center justify-center">
       <h2 className=" text-center my-2 md:my-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-800">
         Create Your Custom Notes !
       </h2>
-      <form
+      <form 
+      onSubmit={addNote}
         action=""
-        className="2xl:w-1/2 flex-wrap w-full mx-auto flex items-center gap-2 md:gap-0 justify-evenly"
+        className="2xl:w-[70%] w-full mx-auto flex flex-wrap gap-2 md:gap-0 justify-evenly"
       >
         <input
           onChange={handleChange}
@@ -62,19 +67,19 @@ function Notes({ loginStatus, setLoginStatus }) {
           name="title"
           value={note.title}
           placeholder="Enter Title here"
-          className="px-6 py-1.5 rounded-md border-2 border-black"
+          className="px-6 py-1.5 rounded-md border-2 border-black w-[90%] md:w-1/3 "
         />
         <input
           onChange={handleChange}
           autoComplete="off"
-          className="px-6 py-1.5 rounded-md  border-2 border-black"
+          className="px-6 py-1.5 rounded-md  border-2 border-black w-[90%] md:w-1/3"
           type="text"
           value={note.description}
           id="description"
           name="description"
           placeholder="Enter description here"
         />
-        <Button onClick={addNote} ripple={true}>
+        <Button onClick={addNote} type="submit" ripple={true}>
           Create Note
         </Button>
       </form>
@@ -82,6 +87,7 @@ function Notes({ loginStatus, setLoginStatus }) {
         <div className="md:w-[80%] w-full px-5 xl:px-0 mt-0 md:mt-6 flex flex-wrap gap-2 md:gap-5">
           {notes.map((note, index) => (
             <Note
+            onUpdate={onUpdate}
               onDelete={onDelete}
               key={index}
               id={note._id}
@@ -92,10 +98,10 @@ function Notes({ loginStatus, setLoginStatus }) {
         </div>
       )}
       {!loginStatus && (
-        <div>
+        <div className="mt-10">
           <h2>
-            Login to View/Create your Notes :{" "}
-            {<Link to={"/login"}>Click Here</Link>}{" "}
+            Please Login to View/Create your Notes :{" "}
+            {<Link to={"/login"} className=" text-blue-900 underline">Click Here</Link>}{" "}
           </h2>
         </div>
       )}

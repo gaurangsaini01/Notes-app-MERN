@@ -31,13 +31,15 @@ async function createNote(req, res) {
 }
 async function updateNote(req, res) {
   try {
-    const { noteId, title, description } = req.body;
+    const noteId  = req.params.id;
+    const { title, description } = req.body;
     if (!noteId) {
       return res.status(400).json({
         success: false,
         message: "No NoteID present",
       });
     }
+    console.log(title,description,noteId)
     const updatedNote = await Note.findByIdAndUpdate(
       noteId,
       {

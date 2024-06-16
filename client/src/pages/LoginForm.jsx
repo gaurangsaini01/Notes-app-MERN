@@ -4,14 +4,13 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export function LoginForm({loginStatus,setLoginStatus}) {
-
+export function LoginForm({ loginStatus, setLoginStatus }) {
   const navigate = useNavigate();
   const [details, setDetails] = useState({
     email: "",
     password: "",
   });
-  
+
   function handleChange(e) {
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -23,7 +22,7 @@ export function LoginForm({loginStatus,setLoginStatus}) {
     axios
       .post("http://localhost:1358/api/v1/login", details)
       .then((e) => {
-        localStorage.setItem("token",e.data.token)
+        localStorage.setItem("token", e.data.token);
         toast.success("LoggedIn");
         setLoginStatus(true);
         navigate("/notes");
@@ -50,6 +49,7 @@ export function LoginForm({loginStatus,setLoginStatus}) {
             Email
           </Typography>
           <Input
+            autoComplete="off"
             onChange={handleChange}
             size="lg"
             placeholder="name@mail.com"
@@ -57,6 +57,7 @@ export function LoginForm({loginStatus,setLoginStatus}) {
             labelProps={{
               className: "before:content-none after:content-none",
             }}
+            type="email"
             name="email"
           />
           <Typography variant="h6" color="blue-gray" className="-mb-3">

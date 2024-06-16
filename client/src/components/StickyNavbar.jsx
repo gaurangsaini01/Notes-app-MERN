@@ -25,6 +25,7 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
     setLoginStatus(false);
     toast.success("Logged Out Successfully");
     navigate("/login");
+    localStorage.removeItem('token');
   }
 
   const navList = (

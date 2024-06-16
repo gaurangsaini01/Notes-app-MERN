@@ -13,7 +13,7 @@ router.post("/login", login);
 
 //note routes
 router.post("/createnote", auth, createNote);
-router.post("/updatenote", auth, updateNote);
+router.post("/updatenote/:id", auth, updateNote);
 router.get("/getallnotes", auth, getAllNotes);
 router.delete("/deletenote/:id", auth, deleteNote);
 module.exports = router;
