@@ -39,7 +39,6 @@ async function updateNote(req, res) {
         message: "No NoteID present",
       });
     }
-    console.log(title,description,noteId)
     const updatedNote = await Note.findByIdAndUpdate(
       noteId,
       {
