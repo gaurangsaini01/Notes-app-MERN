@@ -30,47 +30,6 @@ export function StickyNavbar({ loginStatus, setLoginStatus }) {
 
   const navList = (
     <ul className="mt-2 pt-6 mb-4 flex flex-col gap-2 lg:mb-5 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Link to={"/"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Home
-        </Typography>
-      </Link>
-
-      <Link to={"/notes"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Notes
-        </Typography>
-      </Link>
-      <Link to={"/profile"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Profile
-        </Typography>
-      </Link>
-      <Link to={"/contact"}>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal"
-        >
-          Contact Us
-        </Typography>
-      </Link>
     </ul>
   );
 

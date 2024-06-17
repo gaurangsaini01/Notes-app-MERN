@@ -5,7 +5,7 @@ import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 import Note from "../components/Note";
 
-function Notes({ loginStatus, setLoginStatus }) {
+function Notes({ loginStatus }) {
   const [notes, setNotes] = useState([]);
   const [note, setNote] = useState({
     title: "",
@@ -23,6 +23,7 @@ function Notes({ loginStatus, setLoginStatus }) {
     }
     getNotes();
   }, []);
+
 
   function handleChange(e) {
     setNote((prev) => {
@@ -46,7 +47,9 @@ function Notes({ loginStatus, setLoginStatus }) {
   }
 
   function onUpdate(updatedNote) {
-    setNotes((prev) => prev.map((note) => (note._id === updatedNote._id ? updatedNote : note)));
+    setNotes((prev) =>
+      prev.map((note) => (note._id === updatedNote._id ? updatedNote : note))
+    );
   }
 
   return (
@@ -54,8 +57,8 @@ function Notes({ loginStatus, setLoginStatus }) {
       <h2 className=" text-center my-2 md:my-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-800">
         Create Your Custom Notes !
       </h2>
-      <form 
-      onSubmit={addNote}
+      <form
+        onSubmit={addNote}
         action=""
         className="2xl:w-[70%] w-full mx-auto flex flex-wrap gap-2 md:gap-0 justify-evenly"
       >
@@ -86,8 +89,8 @@ function Notes({ loginStatus, setLoginStatus }) {
       {loginStatus && (
         <div className="md:w-[80%] w-full px-5 xl:px-0 mt-0 md:mt-6 flex flex-wrap gap-2 md:gap-5">
           {notes.map((note, index) => (
-            <Note
-            onUpdate={onUpdate}
+            <Note 
+              onUpdate={onUpdate}
               onDelete={onDelete}
               key={index}
               id={note._id}
@@ -101,7 +104,11 @@ function Notes({ loginStatus, setLoginStatus }) {
         <div className="mt-10">
           <h2>
             Please Login to View/Create your Notes :{" "}
-            {<Link to={"/login"} className=" text-blue-900 underline">Click Here</Link>}{" "}
+            {
+              <Link to={"/login"} className=" text-blue-900 underline">
+                Click Here
+              </Link>
+            }{" "}
           </h2>
         </div>
       )}

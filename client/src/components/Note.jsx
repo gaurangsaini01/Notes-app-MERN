@@ -10,7 +10,7 @@ import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -44,9 +44,9 @@ function Note({ id, title, description, onDelete, onUpdate }) {
 
   async function handleDelete() {
     try {
-      const response = await axiosInstance.delete(`/deleteNote/${id}`);
-      toast.success('Note Removed Successfully')
-      onDelete(id); 
+      await axiosInstance.delete(`/deleteNote/${id}`);
+      toast.success("Note Removed Successfully");
+      onDelete(id);
     } catch (error) {
       console.error("Error deleting note:", error);
       toast.error("Couldn't delete right now");

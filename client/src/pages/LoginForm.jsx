@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export function LoginForm({ loginStatus, setLoginStatus }) {
+export function LoginForm({ setLoginStatus }) {
   const navigate = useNavigate();
   const [details, setDetails] = useState({
     email: "",
