@@ -2,16 +2,20 @@ const express = require("express");
 const app = express();
 const connectWithDB = require("./config/dbConnect");
 const router = require("./routes/route");
-const cors = require('cors')
+const cors = require("cors");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://cloudifynotes.netlify.app",
+  })
+);
 require("dotenv").config();
 
 app.use(express.json());
 connectWithDB();
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => { 
+app.listen(PORT, () => {
   console.log(`Running on PORT ${PORT}`);
 });
 app.get("/", (req, res) => {
