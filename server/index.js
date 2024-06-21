@@ -4,8 +4,16 @@ const connectWithDB = require("./config/dbConnect");
 const router = require("./routes/route");
 const cors = require("cors");
 
+const allowedOrigins = ['http://localhost:1358', 'https://notes-app-mern-9d8p.onrender.com'];
+
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
 app.use(cors(corsOptions));
 require("dotenv").config();
