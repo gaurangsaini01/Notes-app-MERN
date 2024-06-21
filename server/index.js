@@ -4,7 +4,7 @@ const connectWithDB = require("./config/dbConnect");
 const router = require("./routes/route");
 const cors = require("cors");
 
-const allowedOrigins = ['http://localhost:1358', 'https://notes-app-mern-9d8p.onrender.com'];
+const allowedOrigins = ['http://localhost:5173', 'https://cloudifynotes.netlify.app/'];
 
 const corsOptions = {
   origin: function (origin, callback) {
