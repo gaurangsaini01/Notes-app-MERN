@@ -19,8 +19,13 @@ export function LoginForm({ setLoginStatus }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     axios
-      .post("http://localhost:1358/api/v1/login", details)
+      .post("https://notes-app-mern-9d8p.onrender.com/api/v1/login", details,{
+        headers:headers
+      })
       .then((e) => {
         localStorage.setItem("token", e.data.token);
         toast.success("LoggedIn");

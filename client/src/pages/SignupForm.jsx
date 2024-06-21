@@ -22,7 +22,7 @@ export function SignupForm() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   }
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     axios
       .post("http://localhost:1358/api/v1/signup", details)

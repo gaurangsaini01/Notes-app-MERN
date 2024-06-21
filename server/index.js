@@ -4,11 +4,10 @@ const connectWithDB = require("./config/dbConnect");
 const router = require("./routes/route");
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "https://cloudifynotes.netlify.app",
-  })
-);
+const corsOptions = {
+  origin: 'http://localhost:5173',
+};
+app.use(cors(corsOptions));
 require("dotenv").config();
 
 app.use(express.json());
