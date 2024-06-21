@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:1358/api/v1',
+  baseURL: 'https://notes-app-mern-9d8p.onrender.com/api/v1',
 });
 
 axiosInstance.interceptors.request.use(

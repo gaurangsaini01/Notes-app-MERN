@@ -24,8 +24,13 @@ export function SignupForm() {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    const headers = {
+      'Content-Type': 'application/json',
+    };
     axios
-      .post("http://localhost:1358/api/v1/signup", details)
+      .post("https://notes-app-mern-9d8p.onrender.com/api/v1/signup", details,{
+        headers:headers
+      })
       .then(() =>{
         toast.success('Signup Complete')
         navigate("/login")
